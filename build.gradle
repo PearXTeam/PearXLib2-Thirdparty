@@ -1,0 +1,14 @@
+group 'ru.pearx.lib.thirdparty'
+version '1.0.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":PearXLib2")
+}
