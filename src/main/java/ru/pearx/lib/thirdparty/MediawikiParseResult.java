@@ -8,9 +8,7 @@ import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import org.jsoup.select.Selector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,34 +30,39 @@ public class MediawikiParseResult
         public String extractSummary(String page)
         {
             Document doc = Jsoup.parse(text.get(page));
+            doc.outputSettings().prettyPrint(true);
 
             Element el = doc.getElementsByTag("body").get(0);
-            List<Node> toRem = new ArrayList<>();
-            boolean rem = false;
-            for(Node nd : el.childNodes())
-            {
-                if (!rem && nd instanceof Element)
-                {
-                    Element e = (Element) nd;
-                    if (e.tagName().equals("table") && e.id().equals("toc"))
-                        rem = true;
-                }
-                if (rem)
-                    toRem.add(nd);
-            }
-            for(Node nd : toRem)
-                nd.remove();
 
+            {
+                Element toc = el.getElementById("toc");
+                if(toc != null)
+                {
+                    List<Node> toRem = new ArrayList<>();
+                    boolean rem = false;
+                    for (Node nd : toc.parent().childNodes())
+                    {
+                        if (nd instanceof Element && ((Element) nd).id().equals("toc"))
+                            rem = true;
+                        if (rem)
+                            toRem.add(nd);
+                    }
+                    for (Node nd : toRem)
+                        nd.remove();
+                }
+            }
+
+            List<String> distags = Arrays.asList("thumb", "infobox");
             JsoupUtils.filterRecursive(el, (node) ->
             {
                 if(node instanceof Element)
                 {
                     Element elem = (Element) node;
-                    return !elem.tagName().equals("table") && !elem.id().startsWith("cite_ref") && !elem.classNames().contains("thumb");
+                    return !elem.tagName().equals("table") && !elem.id().startsWith("cite_ref") && Collections.disjoint(elem.classNames(), distags);
                 }
                 return true;
             });
-            return el.text();
+            return JsoupUtils.toText(new StringBuilder(), el).toString();
         }
     }
 

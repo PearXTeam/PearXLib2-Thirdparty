@@ -2,6 +2,7 @@ package ru.pearx.lib.thirdparty;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
@@ -32,5 +33,17 @@ public final class JsoupUtils
         {
             filterRecursive(el, filter);
         }
+    }
+
+    public static StringBuilder toText(StringBuilder sb, Node nd)
+    {
+        if(nd instanceof TextNode)
+            sb.append(((TextNode) nd).getWholeText());
+        if(nd.childNodeSize() > 0)
+        {
+            for (Node ch : nd.childNodes())
+                toText(sb, ch);
+        }
+        return sb;
     }
 }
