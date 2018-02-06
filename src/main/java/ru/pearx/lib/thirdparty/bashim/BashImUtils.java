@@ -14,7 +14,7 @@ import java.util.Random;
 /*
  * Created by mrAppleXZ on 06.02.18 13:05.
  */
-public class BashImUtils
+public final class BashImUtils
 {
     public static final String RANDOM_URL = "http://bash.im/random";
 
