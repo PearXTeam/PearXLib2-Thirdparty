@@ -1,4 +1,4 @@
-package ru.pearx.lib.thirdparty;
+package ru.pearx.lib.thirdparty.google;
 
 import java.util.List;
 

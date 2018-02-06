@@ -39,6 +39,8 @@ public final class JsoupUtils
     {
         if(nd instanceof TextNode)
             sb.append(((TextNode) nd).getWholeText());
+        else if(nd instanceof Element && ((Element) nd).tagName().equals("br"))
+            sb.append(System.lineSeparator());
         if(nd.childNodeSize() > 0)
         {
             for (Node ch : nd.childNodes())

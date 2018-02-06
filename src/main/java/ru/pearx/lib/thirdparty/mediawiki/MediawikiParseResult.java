@@ -1,4 +1,4 @@
-package ru.pearx.lib.thirdparty;
+package ru.pearx.lib.thirdparty.mediawiki;
 
 import com.google.gson.annotations.SerializedName;
 import org.jsoup.Jsoup;
@@ -6,11 +6,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-import org.jsoup.select.Selector;
+import ru.pearx.lib.thirdparty.JsoupUtils;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /*
  * Created by mrAppleXZ on 11.08.17 21:36.
@@ -36,13 +34,19 @@ public class MediawikiParseResult
 
             {
                 Element toc = el.getElementById("toc");
+                if(toc == null)
+                {
+                    Elements hs = el.getElementsByTag("h2");
+                    if(!hs.isEmpty())
+                        toc = hs.get(0);
+                }
                 if(toc != null)
                 {
                     List<Node> toRem = new ArrayList<>();
                     boolean rem = false;
                     for (Node nd : toc.parent().childNodes())
                     {
-                        if (nd instanceof Element && ((Element) nd).id().equals("toc"))
+                        if (nd == toc)
                             rem = true;
                         if (rem)
                             toRem.add(nd);

@@ -1,20 +1,13 @@
-package ru.pearx.lib.thirdparty;
+package ru.pearx.lib.thirdparty.mediawiki;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import ru.pearx.lib.PXL;
 import ru.pearx.lib.URIBuilder;
 
-import javax.print.attribute.standard.Media;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Scanner;
 
 /*
  * Created by mrAppleXZ on 11.08.17 21:50.

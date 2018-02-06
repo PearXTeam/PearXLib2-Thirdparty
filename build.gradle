@@ -11,6 +11,6 @@ repositories {
 
 dependencies {
     compile project(":PearXLib2")
-    compile "com.google.code.gson:gson:2.8.1"
+    compile "com.google.code.gson:gson:2.8.2"
     compile "org.jsoup:jsoup:1.11.1"
 }

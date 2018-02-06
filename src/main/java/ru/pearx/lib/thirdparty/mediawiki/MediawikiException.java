@@ -1,4 +1,4 @@
-package ru.pearx.lib.thirdparty;
+package ru.pearx.lib.thirdparty.mediawiki;
 
 /*
  * Created by mrAppleXZ on 12.08.17 14:11.
